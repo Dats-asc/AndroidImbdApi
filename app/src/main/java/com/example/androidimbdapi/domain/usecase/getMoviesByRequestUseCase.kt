@@ -1,6 +1,5 @@
 package com.example.androidimbdapi.domain.usecase
 
-import android.app.appsearch.SearchResult
 import com.example.androidimbdapi.domain.entity.MovieSearch
 import com.example.androidimbdapi.domain.repository.ImbdRepository
 import io.reactivex.rxjava3.core.Single

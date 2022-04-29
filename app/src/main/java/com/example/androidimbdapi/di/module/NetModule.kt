@@ -3,6 +3,8 @@ package com.example.androidimbdapi.di.module
 import com.example.androidimbdapi.data.ImbdApi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -11,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetModule {
 
     private val BASE_URL = "https://imdb-api.com/"
