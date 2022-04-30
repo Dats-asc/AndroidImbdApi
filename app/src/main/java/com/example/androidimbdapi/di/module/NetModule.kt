@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -22,16 +21,22 @@ class NetModule {
     fun okhttp(): OkHttpClient =
         OkHttpClient.Builder()
             .build()
+    @Provides
+    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
+
+    @Provides
+    fun provideRxJavaCallAdapter(): RxJava3CallAdapterFactory = RxJava3CallAdapterFactory.create()
 
     @Provides
     fun api(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory
     ): ImbdApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(gsonConverterFactory)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .addCallAdapterFactory(rxJava3CallAdapterFactory)
         .build()
         .create(ImbdApi::class.java)
 }
